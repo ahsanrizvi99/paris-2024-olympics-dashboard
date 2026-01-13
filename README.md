@@ -6,7 +6,7 @@
 ![Django](https://img.shields.io/badge/Framework-Django-092E20?logo=django&logoColor=white)
 ![Matplotlib](https://img.shields.io/badge/Visualization-Matplotlib_(Server_Side)-11557c?logo=python&logoColor=white)
 ![PDF Generation](https://img.shields.io/badge/Reporting-xhtml2pdf-red)
-![Status](https://img.shields.io/badge/Status-Complete-success)
+![Status](https://img.shields.io/badge/Project-Academic-success)
 
 [![View Project Report](https://img.shields.io/badge/View-Project_Report-blue?logo=adobe-acrobat-reader&logoColor=white)](docs/Project_Report.pdf)
 
