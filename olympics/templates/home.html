@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Paris Olympics 2024{% endblock %}
+
+{% block content %}
+<div class="text-center mb-5">
+    <h1 class="text-golden fw-bold">Welcome to the Paris Olympics 2024</h1>
+    <p class="text-muted">Explore the top athletes, events, and medalists of the Paris Olympics!</p>
+
+    <!-- Added Pictures and Center Image -->
+    <div class="d-flex justify-content-center align-items-center my-4">
+        <!-- Left Image -->
+        <img src="{% static 'images/p1.jpg' %}" alt="Left Image" class="img-fluid rounded shadow" style="max-width: 550px; margin-right: 10px;">
+        
+        <!-- Center Image -->
+        <img src="{% static 'images/paris2024.jpg' %}" alt="Paris Olympics 2024" class="img-fluid rounded shadow" style="max-width: 700px;">
+        
+        <!-- Right Image -->
+        <img src="{% static 'images/p2.jpg' %}" alt="Right Image" class="img-fluid rounded shadow" style="max-width: 550px; margin-left: 10px;">
+    </div>
+</div>
+
+<!-- Overview, Top Athletes, and Top Events Section -->
+<div class="row justify-content-center mb-4">
+    <div class="col-md-4">
+        <div class="card shadow-lg" style="margin-top: -30px;">
+            <div class="card-body text-center">
+                <h5 class="card-title text-golden fw-bold">Overview</h5>
+                <p>Total Athletes: <strong>{{ total_athletes }}</strong></p>
+                <p>Total Events: <strong>{{ total_events }}</strong></p>
+                <p>Total Medals: <strong>{{ total_medals }}</strong></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-lg" style="margin-top: -30px;">
+            <div class="card-body text-center">
+                <h5 class="card-title text-golden fw-bold">Top Athletes</h5>
+                <ul class="list-unstyled">
+                    {% for athlete in top_athletes %}
+                        <li>{{ athlete.name }} - {{ athlete.sport }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow-lg" style="margin-top: -30px;">
+            <div class="card-body text-center">
+                <h5 class="card-title text-golden fw-bold">Top Events</h5>
+                <ul class="list-unstyled">
+                    {% for event in top_events %}
+                        <li>{{ event.name }} - {{ event.sport }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

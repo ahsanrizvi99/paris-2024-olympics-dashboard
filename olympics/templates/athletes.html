@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Athletes - Paris Olympics 2024{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Page Heading -->
+    <h1 class="text-center mb-4 fw-bold text-golden">Athletes</h1>
+
+    <!-- Search and Filter Form -->
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-6">
+            <input type="text" name="q" class="form-control" placeholder="Search by name or country" value="{{ query }}">
+        </div>
+        <div class="col-md-4">
+            <select name="sport" class="form-select">
+                <option value="">-- Filter by Sport --</option>
+                {% for sport in sports %}
+                    <option value="{{ sport }}" {% if sport == sport_filter %}selected{% endif %}>
+                        {{ sport }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-golden w-100">Search</button>
+        </div>
+    </form>
+
+    <!-- Visualization and Export Buttons -->
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex justify-content-start">
+            <a href="{% url 'athletes_by_country_graph' %}" target="_blank" class="btn btn-golden px-4 py-2">
+                Visualize Data
+            </a>
+        </div>
+        <div class="d-flex justify-content-end mb-3">
+            <a href="{% url 'export_athletes_csv' %}?q={{ query }}&sport={{ sport_filter }}" class="btn btn-success me-2">Export as CSV</a>
+            <a href="{% url 'export_athletes_pdf' %}?q={{ query }}&sport={{ sport_filter }}" class="btn btn-danger">Export as PDF</a>
+        </div>
+    </div>
+
+    <!-- Athletes List -->
+    <div class="row">
+        {% for athlete in athletes %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-golden fw-bold">{{ athlete.name }}</h5>
+                        <p class="card-text">
+                            <strong>Sport:</strong> {{ athlete.sport }}<br>
+                            <strong>Country:</strong> {{ athlete.country }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12 text-center">
+                <div class="alert alert-warning">No athletes found.</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

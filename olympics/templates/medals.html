@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Medals - Paris Olympics 2024{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center text-golden fw-bold">Olympic Medals</h1>
+
+    <!-- Filter Form -->
+    <form method="get" class="row g-3 mt-4 mb-5">
+        <div class="col-md-3">
+            <select name="medal_type" class="form-select">
+                <option value="">-- Filter by Medal Type --</option>
+                {% for medal_type in medal_types %}
+                    <option value="{{ medal_type }}" {% if medal_type == medal_filter %}selected{% endif %}>
+                        {{ medal_type }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="athlete_name" class="form-control" placeholder="Search by athlete name" value="{{ athlete_query|default:'' }}">
+        </div>
+        <div class="col-md-3">
+            <input type="text" name="country" class="form-control" placeholder="Search by country" value="{{ country_query|default:'' }}">
+        </div>
+        <div class="col-md-3 text-end">
+            <button type="submit" class="btn btn-golden w-100">Filter</button>
+        </div>
+    </form>
+
+    <!-- Visualization and Export Buttons -->
+    <div class="row mb-4">
+        <div class="col-md-6 d-flex justify-content-start">
+            <a href="{% url 'medals_visualization' %}" target="_blank" class="btn btn-golden px-4 py-2">
+                Visualize Data
+            </a>
+        </div>
+        <div class="d-flex justify-content-end mb-3">
+            <a href="{% url 'export_medals_csv' %}?medal_type={{ medal_filter }}&athlete_name={{ athlete_query }}&country={{ country_query }}" class="btn btn-success me-2">Export as CSV</a>
+            <a href="{% url 'export_medals_pdf' %}?medal_type={{ medal_filter }}&athlete_name={{ athlete_query }}&country={{ country_query }}" class="btn btn-danger">Export as PDF</a>
+        </div>
+
+    </div>
+
+    <!-- Medals List -->
+    <div class="row">
+        {% for medal in medals %}
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h5 class="card-title text-golden fw-bold">{{ medal.athlete.name }}</h5>
+                        <p><strong>Medal:</strong> {{ medal.medal_type }}</p>
+                        <p><strong>Event:</strong> {{ medal.event.name }}</p>
+                        <p><strong>Country:</strong> {{ medal.country }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12 text-center">
+                <div class="alert alert-warning">No medals found.</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
